@@ -1,18 +1,19 @@
 const Conta = require("./Conta");
 
 describe("Conta", () => {
-    test("Deve depositar com conta ativa", () => {
-        const conta = new Conta();
+    let conta;
 
+    beforeEach(() => {
+        conta = new Conta();
         conta.ativar();
-        conta.depositar(100.00);
+    })
 
+    test("Deve depositar com conta ativa", () => {
+        conta.depositar(100.00);
         expect(conta.getSaldo()).toBe(100);
     });
 
     test("Não deve depositar com conta inativa", () => {
-        const conta = new Conta();
-
         conta.inativar();
         conta.depositar(100.00);
 
@@ -20,9 +21,6 @@ describe("Conta", () => {
     });
 
     test("Deve sacar com conta ativa e saldo maior que o valor de saque", () => {
-        const conta = new Conta();
-
-        conta.ativar();
         conta.depositar(100.00);
         conta.sacar(70.0);
 
@@ -30,9 +28,6 @@ describe("Conta", () => {
     });
 
     test("Não deve sacar com conta inativa", () => {
-        const conta = new Conta();
-
-        conta.ativar();
         conta.depositar(100.00);
         conta.inativar();
         conta.sacar(70.0);
@@ -41,9 +36,6 @@ describe("Conta", () => {
     });
 
     test("Não deve sacar com conta ativa e saldo menor que o valor de saque", () => {
-        const conta = new Conta();
-
-        conta.ativar();
         conta.depositar(100.00);
         conta.sacar(110.0);
 
