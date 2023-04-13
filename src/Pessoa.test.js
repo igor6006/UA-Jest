@@ -12,6 +12,14 @@ let nome,
 
 let tempoAposentadoria;
 
+let idadeLimiteAposentadoriaMasculino,
+    idadeAcimaDoLimiteAposentadoriaMasculino,
+    idadeLimiteAposentadoriaFeminino,
+    idadeAcimaDoLimiteAposentadoriaFeminino,
+    generoFeminino;
+
+let tempoParaAposentadoriaZero;
+
 beforeAll(() => {
     nome = "Igor Osorio";
     idade = 24;
@@ -24,6 +32,15 @@ beforeAll(() => {
     }else{
         tempoAposentadoria = 60-idade;
     }
+    
+    idadeLimiteAposentadoriaMasculino = 65;
+    idadeAcimaDoLimiteAposentadoriaMasculino = 70;
+    idadeLimiteAposentadoriaFeminino = 60
+    idadeAcimaDoLimiteAposentadoriaFeminino = 63;
+    generoFeminino = "Feminino";
+
+    tempoParaAposentadoriaZero = 0;
+
     pessoa = new Pessoa(nome,idade,endereco,genero,telefone,experiencia);
 
     dadosCompletos = nome.concat(", ",idade,", ",genero,", ",telefone,", ",endereco,", ",experiencia);
@@ -34,6 +51,7 @@ beforeEach(() => {
 
 
 describe("Pessoa", () => {
+
     test("Deve retornar o nome", () => {
         expect(pessoa.getNome()).toBe(nome);
     });
@@ -51,7 +69,8 @@ describe("Pessoa", () => {
     });
 
     test("Deve retornar o nome e o telefone", () => {
-        var nomeETelefone = [nome,telefone];
+        let nomeETelefone = [nome,telefone];
+        
         expect(pessoa.getNomeETelefone()).toEqual(nomeETelefone);
     });
 
@@ -65,5 +84,27 @@ describe("Pessoa", () => {
 
     test("Deve retornar o telefone", () => {
         expect(pessoa.getTelefone()).toBe(telefone);
+    });
+
+    test("Deve retornar tempo que falta para aposentadoria igual a zero caso seja do gênero masculino e tenha idade igual a 65", () => {
+        pessoa.setIdade(idadeLimiteAposentadoriaMasculino);
+        expect(pessoa.getTempoParaSeAposentar()).toBe(0);
+    });
+
+    test("Deve retornar tempo que falta para aposentadoria igual a zero caso seja do gênero masculino e tenha idade maior que 65", () => {
+        pessoa.setIdade(idadeAcimaDoLimiteAposentadoriaMasculino);
+        expect(pessoa.getTempoParaSeAposentar()).toBe(0);
+    });
+
+    test("Deve retornar tempo que falta para aposentadoria igual a zero caso seja do gênero feminino e tenha idade igual a 60", () => {
+        pessoa.setIdade(idadeLimiteAposentadoriaFeminino);
+        pessoa.setGenero(generoFeminino);
+        expect(pessoa.getTempoParaSeAposentar()).toBe(tempoParaAposentadoriaZero);
+    });
+
+    test("Deve retornar tempo que falta para aposentadoria igual a zero caso seja do gênero feminino e tenha idade maior que 60" , () => {
+        pessoa.setIdade(idadeAcimaDoLimiteAposentadoriaFeminino);
+        pessoa.setGenero(generoFeminino);
+        expect(pessoa.getTempoParaSeAposentar()).toBe(tempoParaAposentadoriaZero);
     });
 });

@@ -66,15 +66,30 @@ class Pessoa {
         return this.experiencia;
     }
     getTempoParaSeAposentar(){
+        let tempoAposentadoria = 0;
+
         if(this.genero == 'Masculino'){
-            return 65-this.idade;
+            tempoAposentadoria = 65-this.idade;
         }else{
-            return 60-this.idade;
+            tempoAposentadoria = 60-this.idade;
         }
+        
+        if(tempoAposentadoria <= 0){
+            tempoAposentadoria = 0;
+        }
+        return tempoAposentadoria;
     }
 
     getTelefone(){
         return this.telefone;
+    }
+
+    setIdade(idade){
+        this.idade = idade;
+    }
+
+    setGenero(genero){
+        this.genero = genero;
     }
 }
 
