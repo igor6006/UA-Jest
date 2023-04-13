@@ -32,4 +32,50 @@
 
 class Pessoa {
 
+    constructor(nome, idade, endereco, genero, telefone, experiencia) {
+        this.nome = nome;
+        this.idade = idade;
+        this.endereco = endereco;
+        this.genero = genero;
+        this.telefone = telefone;
+        this.experiencia = experiencia;
+    }
+
+    getNome(){
+        return this.nome;
+    }
+    getIdade(){
+        return this.idade;
+    }
+    getEndereco(){
+        return this.endereco;
+    }
+
+    
+    getDadosCompletos(){
+        let dadosCompletos = this.nome.concat(", ",this.idade,", ",
+        this.genero,", ",this.telefone,", ",this.endereco,", ",this.experiencia);
+        return dadosCompletos;
+    }
+
+    getNomeETelefone(){
+        return [this.nome,this.telefone];
+    }
+
+    getExperiencia(){
+        return this.experiencia;
+    }
+    getTempoParaSeAposentar(){
+        if(this.genero == 'Masculino'){
+            return 65-this.idade;
+        }else{
+            return 60-this.idade;
+        }
+    }
+
+    getTelefone(){
+        return this.telefone;
+    }
 }
+
+module.exports = Pessoa;
